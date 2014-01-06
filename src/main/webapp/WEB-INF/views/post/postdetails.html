@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Create a New Post</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script src="../../../resources/js/angular/angular.js" th:src="@{/resources/js/angular/angular.js}"></script>
+    <script src="../../../resources/js/app.js" th:src="@{/resources/js/app.js}"></script>
+    
+<!--     <script> -->
+// 		$(document).ready(function(){
+// 			 $("#publishLink").click(function(event){
+// 	             $.ajax({
+// 	            	 url:$(event.target).attr("href"),
+// 	            	 //data:"id:12",
+// 	            	 type: "PUT",
+// 	            	 dataType : "json",
+// 	            	 success: function( json ) {
+// 	            			 //alert("success");
+// 	            	 	},
+// 	            	 error: function( xhr, status ) {
+// 	            	        //alert( "there was a problem!" );
+// 	            	    },
+// 	            	 complete: function( xhr, status ) {
+// 	            	        //alert( "The request is complete!" );
+// 	            	    }
+// 	             });   
+	             
+// 	             return false;
+// 	        });
+// 		});
+<!-- 	</script> -->
+</head>
+
+<body ng-app="sampleApp">
+<div class="container">
+    <!-- /* Handle the flash message */-->
+    <th:block th:if="${message != null}">
+        <!-- /* The message code is returned from the @Controller */ -->
+        <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase({{message.type}})}, message=#{{message.message}({{Post.id}})})">&nbsp;</div>
+    </th:block>
+		<div class="jumbotron">
+			<p th:text="{{Post.title}}" align="center" id="title" ></p>
+			<p th:text="{{Post.content}}"></p>
+			<p>
+				<a id="publishLink" class="btn btn-primary" href="/post/publish">Publish</a>
+			</p>
+		</div>
+		
+		<div class="panel panel-default">
+  <div class="panel-body">
+    Basic panel example
+  </div>
+</div>
+
+	</div>
+</body>
+</html>
