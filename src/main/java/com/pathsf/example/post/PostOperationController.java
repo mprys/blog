@@ -25,7 +25,7 @@ public class PostOperationController {
 	@Autowired
 	PostOperationService postService;
 	
-	@RequestMapping(value="/post/create/", method=RequestMethod.GET)
+	@RequestMapping(value="/post/create", method=RequestMethod.GET)
 	public String setup(Model model){
 		
 		model.addAttribute("Post", new Post());
