@@ -6,17 +6,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <link href="../../../resources/css/summernote.css" rel="stylesheet" media="screen" th:href="@{/resources/css/summernote.css}" />
+    <link href="../../../resources/css/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap-wysihtml5.css}" />
+    <link href="../../../resources/css/bootstrap3-wysiwyg5-color.css" rel="stylesheet" type="text/css" th:href="@{/resources/css/bootstrap3-wysiwyg5-color.css}" />
 
-    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
-    <script src="../../../resources/js/summernote.min.js" th:src="@{/resources/js/summernote.min.js}"></script>
-
+    <script src="../../../resources/js/jquery-1.10.2.min.js" th:src="@{/resources/js/jquery-1.10.2.min.js}"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script> 
+    <script src="../../../resources/js/wysihtml5-0.3.0.js" th:src="@{/resources/js/wysihtml5-0.3.0.js}" type="text/javascript"></script>
+    <script src="../../../resources/js/bootstrap3-wysihtml5.js" type="text/javascript" th:src="@{/resources/js/bootstrap3-wysihtml5.js}"></script>
+    
     <script>
     	$(document).ready(function(){
-    		
-    		$("#closeButton").hide();
-    		
-    		$('#summernote').summernote();
     		
     		$("#createPost").submit(function(event){
     			$.ajax({
@@ -30,7 +29,7 @@
 	            			$("#resultMessage").text("New Post created!");
 	            			$("#postDetails").addClass("jumbotron");
 	            			$("#title").text(json['title']);
-	            			$("#content").text(json['content']);
+	            			$("#content").html(json['content']);
 	            			$("#publishLink").text("Publish");
 	            			$("#publishLink").attr('href', 'publish/' + json['id']);
 	            			$("#publishLink").addClass("btn btn-primary");
@@ -78,9 +77,8 @@
 </div>
 <div id="postDetails">
 	<p id="title"></p>
-	<p id="content"></p>
+	<div id="content"></div>
 	<a id="publishLink"></a>
-	<a href="#/postdetails/12" >Details</a>
 </div>
 
 	<form class="form-narrow form-horizontal" style="max-width:1024px;" id="createPost" method="post" th:action="@{/post/create}" th:object="${Post}">
@@ -97,16 +95,17 @@
 	                <span class="help-block" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Should not be empty</span>
 	            </div>
 	        </div>
-<!-- 	        <div class="form-group" th:classappend="${#fields.hasErrors('content')}? 'has-error'"> -->
-<!-- 	            <label for="content" class="col-lg-2 control-label">Content</label> -->
-<!-- 	            <div class="col-lg-10"> -->
-<!-- 	                <input type="text" class="form-control" id="content" placeholder="Content of your post" th:field="*{content}"/> -->
-<!-- 	                <span class="help-block" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Minimum 100 characters</span> -->
-<!-- 	            </div> -->
-			<div id="summernote">Hello Summernote</div>
-<!-- 	        </div> -->
+    <div class="hero-unit">
+        <textarea th:field="*{content}" class="textarea form-control" id="textarea" placeholder="Enter text ..." style="width: 810px; height: 200px"></textarea>
+    </div>
+    
+<script>
+	$("#textarea").wysihtml5();
+	console.log($("#textarea").val());
+</script>
+			 
 	        <div class="form-group">
-	            <div class="col-lg-offset-2 col-lg-10">
+	            <div class="col-lg-offset-2 col-lg-10" style="margin-top:5px; margin-left: auto;" >
 	                <button type="submit" class="btn btn-default">Save</button>
 	                <button type="submit" class="btn btn-default">Cancel</button>
 	            </div>
