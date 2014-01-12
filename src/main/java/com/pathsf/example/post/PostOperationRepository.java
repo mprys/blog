@@ -1,9 +1,14 @@
 package com.pathsf.example.post;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+
+import com.pathsf.example.account.Account;
 
 @Repository
 public class PostOperationRepository {
@@ -22,5 +27,12 @@ public class PostOperationRepository {
 	
 	public Post publishPost(Post post){
 		return em.merge(post);
+	}
+	
+	public List<Post> readAllPosts(Long authorId){
+	 	
+		TypedQuery<Post> query = em.createNamedQuery("Post.findAllByAuthorId", Post.class);
+		query.setParameter(1, authorId);
+		return query.getResultList();
 	}
 }

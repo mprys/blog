@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -23,6 +25,9 @@ import com.pathsf.example.account.Account;
 
 @Entity
 @Table(name="Posts")
+@NamedQueries({
+	@NamedQuery(name="Post.findAllByAuthorId", query="FROM Post where author.id = ?")
+})
 public class Post extends BaseEntity implements Serializable {
 
 	@Transient

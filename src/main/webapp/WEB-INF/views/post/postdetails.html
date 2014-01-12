@@ -6,37 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
-    <script src="../../../resources/js/angular/angular.js" th:src="@{/resources/js/angular/angular.js}"></script>
-    <script src="../../../resources/js/app.js" th:src="@{/resources/js/app.js}"></script>
-    
-<!--     <script> -->
-// 		$(document).ready(function(){
-// 			 $("#publishLink").click(function(event){
-// 	             $.ajax({
-// 	            	 url:$(event.target).attr("href"),
-// 	            	 //data:"id:12",
-// 	            	 type: "PUT",
-// 	            	 dataType : "json",
-// 	            	 success: function( json ) {
-// 	            			 //alert("success");
-// 	            	 	},
-// 	            	 error: function( xhr, status ) {
-// 	            	        //alert( "there was a problem!" );
-// 	            	    },
-// 	            	 complete: function( xhr, status ) {
-// 	            	        //alert( "The request is complete!" );
-// 	            	    }
-// 	             });   
-	             
-// 	             return false;
-// 	        });
-// 		});
-<!-- 	</script> -->
+    <script src="../../../resources/js/jquery-1.10.2.min.js" th:src="@{/resources/js/jquery-1.10.2.min.js}"></script>
 </head>
 
-<body ng-app="sampleApp">
+<body>
 <div class="container">
     <!-- /* Handle the flash message */-->
     <th:block th:if="${message != null}">
@@ -50,13 +25,6 @@
 				<a id="publishLink" class="btn btn-primary" href="/post/publish">Publish</a>
 			</p>
 		</div>
-		
-		<div class="panel panel-default">
-  <div class="panel-body">
-    Basic panel example
-  </div>
-</div>
-
 	</div>
 </body>
 </html>

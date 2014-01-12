@@ -33,19 +33,6 @@ public class AccountRepository {
 			.setParameter("email", email)
 			.getSingleResult();
 			
-//			PersistenceUnitUtil util = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
-//			
-//			util.isLoaded(acc);
-//			util.isLoaded(acc, "posts");
-//			
-//			Hibernate.initialize(acc.getPosts());
-//			
-//			util.isLoaded(acc, "posts");
-//
-//			for (Post post : acc.getPosts()) {
-//				post.getId();
-//			}
-			
 			return acc;
 		} catch (PersistenceException e) {
 			return null;

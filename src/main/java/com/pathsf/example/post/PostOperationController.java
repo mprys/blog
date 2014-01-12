@@ -1,6 +1,8 @@
 package com.pathsf.example.post;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,9 +60,22 @@ public class PostOperationController {
 	public Post displayPostDetails(@PathVariable Long id, Principal principal, Model model){
 		
 		Post p = postService.readPostDetailsById(id);
-		model.addAttribute("Post", p);
-		MessageHelper.addSuccessAttribute(model, "post.create.success");
 		
 		return p;
+	}
+	
+	@RequestMapping(value="/post/all", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(value=HttpStatus.OK)
+	@ResponseBody
+	public List<Post> displayAllPosts(Principal principal, Model model){
+
+		return postService.readAllPost(principal.getName());
+	}
+	
+	@RequestMapping(value="/post/list", method=RequestMethod.GET)
+	@ResponseStatus(value=HttpStatus.OK)
+	public String displayAll(Principal principal, Model model){
+		
+		return "/post/publishedposts";
 	}
 }
