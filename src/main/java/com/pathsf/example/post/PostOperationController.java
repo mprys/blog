@@ -78,4 +78,13 @@ public class PostOperationController {
 		
 		return "/post/publishedposts";
 	}
+	
+	@RequestMapping(value="/post/edit/{id}", method=RequestMethod.GET)
+	public String setupEditMode(@PathVariable Long id, Principal principal, Model model){
+		
+		Post p = postService.readPostDetailsById(id);
+		model.addAttribute("Post", p);
+
+		return "post/postdetails";
+	}
 }

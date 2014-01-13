@@ -8,8 +8,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.pathsf.example.account.Account;
-
 @Repository
 public class PostOperationRepository {
 

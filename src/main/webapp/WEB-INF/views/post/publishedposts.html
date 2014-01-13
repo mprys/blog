@@ -24,8 +24,16 @@
 	            	dataType : "json",
 	            	success : function(json) {
 	            			var ul = $("#listgroup");
+	            			
+	            			$("#tools").hide();
+       						$("#messageDiv").addClass("alert alert-dismissable alert-success");
+	            			$("#resultMessage").text("You have " + json.length + " posts, select one to see details.");
+	            			
 	       					$.each(json, function(idx, elem){
-	       						ul.append('<a href="#" class="list-group-item">' + elem.title + ' <span class="badge">' + elem.id + '</span>' + '</a>');
+	       						
+	       						if (elem.title != ""){
+	       							ul.append('<a href="#" class="list-group-item">' + elem.title + ' <span class="badge">' + elem.id + '</span>' + '</a>');
+	       						}
 	       					});
 	            	 	},
 	            	error : function( xhr, status ) {
@@ -43,12 +51,16 @@
     			    	dataType : "json",
     			    	success : function(json){
     			    		$("#listgroup").hide();
+    			    		$("#tools").show();
     			    		$("#messageDiv").addClass("alert alert-dismissable alert-success");
 	            			$("#resultMessage").text("Selected post id " + id);
 	            			$("#postDetails").addClass("jumbotron");
 	            			$("#title").text(json['title']);
 	            			$("#content").html(json['content']);
 	            			$("#closeButton").show();
+	            			$("#editButton").on('click', function(){
+	            				window.location = "/PathSF-Example/post/edit/" + id
+	            			});
     			    	},
     			    	error : function(xhr, status){
     			    		alert("error");
@@ -67,9 +79,15 @@
    <span id="resultMessage"></span>
 </div>
 <div id="postDetails">
+	<div class="btn-toolbar" role="toolbar" id="tools">
+		<div class="btn-group" style="float: right">
+			<button  class="btn btn-default" id="editButton">Edit</button>
+			<button  class="btn btn-default">Publish</button>
+			<button  class="btn btn-default">Delete</button>
+		</div>
+	</div>
 	<p id="title"></p>
 	<div id="content"></div>
-	<a id="publishLink"></a>
 	
 	<div class="list-group" id="listgroup">
 
