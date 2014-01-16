@@ -90,4 +90,12 @@ public class PostOperationController {
 		
 		return postService.updatePost(id, post);
 	}
+
+	@RequestMapping(value="/post/delete/{id}", method=RequestMethod.DELETE, produces={MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(value=HttpStatus.OK)
+	@ResponseBody
+	public void deletePost(@PathVariable Long id, Principal principal){
+		
+		postService.deletePost(id);
+	}
 }

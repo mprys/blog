@@ -43,12 +43,14 @@
     			
     			$('#listgroup').on('click', '.list-group-item', function() {
     			    var text = $(this).text();
+    			    alert(text);
     			    var id = text[text.length - 1];
-    			    
+    			    $("#postId").val(id);
     			    $.ajax({
     			    	url : "/blog/post/details/" + id,
     			    	type : "GET",
     			    	dataType : "json",
+    			    	contenType : "application/json",
     			    	success : function(json){
     			    		$("#listgroup").hide();
     			    		$("#tools").show();
@@ -56,23 +58,64 @@
 	            			$("#resultMessage").text("Selected post id " + id);
 	            			$("#postDetails").addClass("jumbotron");
 	            			$("#title").text(json['title']);
-	            			
-	            			var content = json['content'];
-	            			var n=content.indexOf("img");
-	            			if (n != -1){		            			
-	                			content = content.substring(0, n+3) + ' style = "max-width: 100%;" ' + content.substring(n + 3, content.length);
+	            			var published = json['published'];
+	            			if (published){
+	            				$("#publishButton").attr('disabled', true);
 	            			}
-	            			
+	            			var content = json['content'];
+	            			if (content != null){
+	            				if (content.indexOf("img") != -1){
+	            					content = content.substring(0, content.indexOf("img") + 3) + 
+              					  ' style = "max-width: 100%;" ' + 
+              					  content.substring(content.indexOf("img") + 3, content.length);	
+	            				}
+	            			}			
 	            			$("#content").html(content);
 	            			$("#closeButton").show();
-	            			$("#editButton").on('click', function(){
-	            				window.location = "/blog/post/edit/" + id
-	            			});
+	            			
     			    	},
     			    	error : function(xhr, status){
     			    		alert("error");
     			    	}
     			    });
+    			    
+    			});
+    			
+    			$("#publishButton").on('click', function(){
+					$.ajax({
+	   	            	 url: "/blog/post/publish/" + $("#postId").val(),
+	   	            	 type: "PUT",
+	   	            	 dataType : "json",
+	   	            	 success: function(json) {
+	   	            			$("#resultMessage").text("Your post published succesfully!");
+	   	            			$("#publishLink").attr('disabled', true);
+	   	            	 	},
+	   	            	 error: function( xhr, status ) {
+	   	            	        //alert( "there was a problem!" );
+	   	            	    },
+	   	            	 complete: function( xhr, status ) {
+	   	            	        //alert( "The request is complete!" );
+	   	            	    }
+	   	             }); 
+				});
+    			
+    			$("#editButton").on('click', function(){
+    				window.location = "/blog/post/edit/" + $("#postId").val();
+    			});
+    			
+    			$("#deleteButton").on('click', function(){
+    				$.ajax({
+    					url : "/blog/post/delete/" + $("#postId").val(),
+    			    	type : "DELETE",
+    			    	//dataType : "json",
+    			    	contenType : "application/json",
+    		            success : function(){
+    			    		window.location = "/blog/post/list";
+    			    	},
+    			    	error : function(xhr, status){
+    			    		alert("error");
+    			    	}
+    				});
     			});
     	});
 </script>
@@ -89,8 +132,9 @@
 	<div class="btn-toolbar" role="toolbar" id="tools">
 		<div class="btn-group" style="float: right">
 			<button  class="btn btn-default" id="editButton">Edit</button>
-			<button  class="btn btn-default">Publish</button>
-			<button  class="btn btn-default">Delete</button>
+			<button  class="btn btn-default" id="publishButton" >Publish</button>
+			<button  class="btn btn-default" id="deleteButton">Delete</button>
+			<input type="hidden" id="postId"/>
 		</div>
 	</div>
 	<p id="title"></p>

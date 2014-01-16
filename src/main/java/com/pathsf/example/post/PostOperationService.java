@@ -51,4 +51,9 @@ public class PostOperationService {
 	public Post updatePost(Long id, Post newPost){
 		return postRepo.updatePost(id, newPost);
 	}
+	
+	@Transactional(readOnly=false)
+	public void deletePost(Long id){
+		postRepo.deletePost(id);
+	}
 }

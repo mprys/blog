@@ -44,4 +44,8 @@ public class PostOperationRepository {
 		
 		return oldPost;
 	}
+	
+	public void deletePost(Long id){
+		em.remove(em.find(Post.class, id));
+	}
 }
