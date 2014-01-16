@@ -33,4 +33,15 @@ public class PostOperationRepository {
 		query.setParameter(1, authorId);
 		return query.getResultList();
 	}
+	
+	public Post updatePost(Long id, Post newPost){
+		
+		Post oldPost = em.find(Post.class, id);
+		oldPost.setContent(newPost.getContent());
+		oldPost.setTitle(newPost.getTitle());
+		oldPost.setTags(newPost.getTags());
+		oldPost.setPublished(Boolean.FALSE);
+		
+		return oldPost;
+	}
 }

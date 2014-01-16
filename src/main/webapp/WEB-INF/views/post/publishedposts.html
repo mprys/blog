@@ -18,7 +18,7 @@
     	$(document).ready(function(){
 
     			$.ajax({
-        			url : "/PathSF-Example/post/all",
+        			url : "/blog/post/all",
 	            	//data : $("#createPost").serialize(),
 	            	type : "GET",
 	            	dataType : "json",
@@ -46,7 +46,7 @@
     			    var id = text[text.length - 1];
     			    
     			    $.ajax({
-    			    	url : "/PathSF-Example/post/details/" + id,
+    			    	url : "/blog/post/details/" + id,
     			    	type : "GET",
     			    	dataType : "json",
     			    	success : function(json){
@@ -56,10 +56,17 @@
 	            			$("#resultMessage").text("Selected post id " + id);
 	            			$("#postDetails").addClass("jumbotron");
 	            			$("#title").text(json['title']);
-	            			$("#content").html(json['content']);
+	            			
+	            			var content = json['content'];
+	            			var n=content.indexOf("img");
+	            			if (n != -1){		            			
+	                			content = content.substring(0, n+3) + ' style = "max-width: 100%;" ' + content.substring(n + 3, content.length);
+	            			}
+	            			
+	            			$("#content").html(content);
 	            			$("#closeButton").show();
 	            			$("#editButton").on('click', function(){
-	            				window.location = "/PathSF-Example/post/edit/" + id
+	            				window.location = "/blog/post/edit/" + id
 	            			});
     			    	},
     			    	error : function(xhr, status){

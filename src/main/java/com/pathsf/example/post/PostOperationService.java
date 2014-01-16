@@ -46,4 +46,9 @@ public class PostOperationService {
 		
 		return postRepo.readAllPosts(acc.getId());
 	}
+	
+	@Transactional(readOnly=false)
+	public Post updatePost(Long id, Post newPost){
+		return postRepo.updatePost(id, newPost);
+	}
 }

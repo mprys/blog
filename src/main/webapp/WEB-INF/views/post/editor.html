@@ -18,11 +18,19 @@
     	$(document).ready(function(){
     		
     		$("#createPost").submit(function(event){
+    			
+    			var jsonData = {
+    					"title" : $("#postTitle").val(),
+    					"content" : $("#textarea").val(),
+    					"published" : false
+    				};
+    			
     			$.ajax({
         			url : $("#createPost").attr('action'),
-	            	data : $("#createPost").serialize(),
+	            	data : JSON.stringify(jsonData),
 	            	type : "POST",
 	            	dataType : "json",
+	            	contentType:"application/json; charset=utf-8",
 	            	success : function(json) {
 	       					$("#createPost").hide();
 	            			$("#messageDiv").addClass("alert alert-dismissable alert-success");
@@ -35,11 +43,11 @@
 	            			$("#publishLink").addClass("btn btn-primary");
 	            			$("#closeButton").show();
 	            	 	},
-	            	error : function( xhr, status ) {
-	            	        alert( "there was a problem!" );
+	            	error : function(xhr, status) {
+	            	        alert( "there was a problem!");
 	            	    },
 	            	complete : function( xhr, status ) {
-	            	        //alert( "The request is complete!" );
+// 	            	        alert( "The request is complete!" );
 	            	    }
     			});
     			return false;
@@ -50,7 +58,7 @@
    	            	 url:$(event.target).attr("href"),
    	            	 type: "PUT",
    	            	 dataType : "json",
-   	            	 success: function( json ) {
+   	            	 success: function(json) {
    	            			$("#resultMessage").text("Your post published succesfully!");
    	            			$("#publishLink").attr('disabled', true);
    	            	 	},
@@ -91,7 +99,7 @@
 	        <legend>New Post details</legend>
 	        <div class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-error'">
 	            <div class="col-lg-10">
-	                <input type="text" class="form-control" id="title" placeholder="Title of your post" th:field="*{title}" />
+	                <input type="text" class="form-control" id="postTitle" placeholder="Title of your post" th:field="*{title}" />
 	                <span class="help-block" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Should not be empty</span>
 	            </div>
 	        </div>
@@ -101,7 +109,6 @@
     
 <script>
 	$("#textarea").wysihtml5();
-	console.log($("#textarea").val());
 </script>
 			 
 	        <div class="form-group">
