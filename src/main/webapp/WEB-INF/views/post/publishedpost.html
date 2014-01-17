@@ -16,64 +16,30 @@
     <script src="../../../resources/js/bootstrap3-wysihtml5.js" type="text/javascript" th:src="@{/resources/js/bootstrap3-wysihtml5.js}"></script>
     
      <script>
-    	$(document).ready(function(){
-    		$("#message").text("Loading your Post...");
-    		alert($("#htmlContent").text());
-    		//var id = $("#postId").val();
-//     		 $.ajax({
-// 			    	url : "/blog/post/details/" + id,
-// 			    	type : "GET",
-// 			    	dataType : "json",
-// 			    	contenType : "application/json",
-// 			    	success : function(json){
-// 			    		$("#listgroup").hide();
-// 			    		$("#tools").show();
-// 			    		$("#messageDiv").addClass("alert alert-dismissable alert-success");
-//          			$("#resultMessage").text("Selected post id " + id);
-//          			$("#postDetails").addClass("jumbotron");
-//          			$("#title").text(json['title']);
-//          			$("#publishButton").attr('disabled', json['published']);
-//          			var content = json['content'];
-//          			if (content != null){
-//          				if (content.indexOf("img") != -1){
-//          					content = content.substring(0, content.indexOf("img") + 3) + 
-//        					    ' style = "max-width: 100%;" ' + 
-//        					    content.substring(content.indexOf("img") + 3, content.length);
-//          				}
-//          			}			
-//          			$("#content").html(content);
-//          			$("#closeButton").show();
-         			
-// 			    	},
-// 			    	error : function(xhr, status){
-// 			    		alert("error");
-// 			    	}
-// 			    });
-    		
-    	});
-    	function loadHtml(content){
-    		alert(content);
-    	}
-    	
-//     	$(window).load(function() {
-//     		alert("window loaded..");
-//     	});
-
-		
-    	
+	    	$(document).ready(function(){
+	    	
+	    		var content = $("#htmlContent").text();
+	    		
+				if (content != null){
+					if (content.indexOf("img") != -1){
+						content = content.substring(0, content.indexOf("img") + 3) + 
+					    ' style = "max-width: 100%;" ' + 
+					    content.substring(content.indexOf("img") + 3, content.length);
+					}
+				}			
+				$("#contentDiv").html(content);    		
+	    	});
    	  </script>           
 </head>
 
 <body>
-    <div>
-        <p id="message"></p>
-        <input type="hidden" id="htmlContent" th:text="${Post.content}"/>
-    </div>
-    
 	<div class="container">
-		<p id="title" th:text="${Post.title}"></p>
-		<div id="content">
-		
+		<p id="htmlContent" th:text="${Post.content}" hidden="true"/>
+		<div class="jumbotron">
+			<h2 id="title" th:text="${Post.title}" style="text-align:center" />
+			<div id="contentDiv" >
+			
+			</div>
 		</div>
 	</div>
 </body>
