@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.pathsf.example.support.web.Message;
+import com.pathsf.example.support.web.Message.Type;
+import com.pathsf.example.support.web.MessageHelper;
 
 @Controller
 public class PostOperationController {
@@ -97,5 +102,15 @@ public class PostOperationController {
 	public void deletePost(@PathVariable Long id, Principal principal){
 		
 		postService.deletePost(id);
+	}
+	
+	@RequestMapping(value="/post/{id}", method=RequestMethod.GET)
+	@ResponseStatus(value=HttpStatus.OK)
+	public String showPublishedPost(@PathVariable Long id, Principal principal, Model model, RedirectAttributes ra){
+		
+		model.addAttribute("Post", postService.readPostDetailsById(id));
+		//model.addAttribute("message", new Message("Basarili", Type.SUCCESS, "Basarili"));
+		
+		return "post/publishedpost";
 	}
 }

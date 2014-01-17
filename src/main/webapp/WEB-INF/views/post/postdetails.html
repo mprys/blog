@@ -50,29 +50,6 @@
   	             });
   	        return false;
     		});
-    		
-    		$("#updateButton").click(function(event){
-    			
-    			var jsonObject = { "content" : "deneme", "title" : "title" };
-  	             $.ajax({
-  	            	 url: '/blog/post/write',
-  	            	 data: JSON.stringify(jsonObject),
-  	            	 type: "POST",
-  	            	 dataType : "json", 
-  	            	 contentType : "application/json",
-  	            	 success: function( json ) {
-  	            			$("#resultMessage").text("Your post published succesfully!");
-  	            			$("#updateButton").attr('disabled', true);
-  	            	 	},
-  	            	 error: function( xhr, status ) {
-  	            	        alert( "there was a problem!" );
-  	            	    },
-  	            	 complete: function( xhr, status ) {
-  	            	        //alert( "The request is complete!" );
-  	            	    }
-  	             });
-  	        return false;
-    		});
     	});
      
    	</script>
@@ -122,8 +99,6 @@
 	        </div>
 	    </fieldset>
 		</form>
-		
-		<button type="submit" class="btn btn-default" id="updateButton">Update</button>
 	</div>
 	
 	</div>
