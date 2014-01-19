@@ -15,6 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import com.pathsf.example.BaseEntity;
+import com.pathsf.example.post.Comment;
 import com.pathsf.example.post.Post;
 
 @SuppressWarnings("serial")
@@ -38,6 +39,10 @@ public class Account extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy="author", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
 	@JsonManagedReference
 	private Set<Post> posts;
+	
+	@OneToMany(mappedBy="owner", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
+	@JsonManagedReference
+	private Set<Comment> comments;
 	
     protected Account() {
 
@@ -79,5 +84,13 @@ public class Account extends BaseEntity implements java.io.Serializable {
 
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
+	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
 	}
 }

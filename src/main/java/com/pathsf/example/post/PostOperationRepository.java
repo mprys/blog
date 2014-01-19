@@ -48,4 +48,9 @@ public class PostOperationRepository {
 	public void deletePost(Long id){
 		em.remove(em.find(Post.class, id));
 	}
+	
+	public Comment insertComment(Comment comment){
+		em.persist(comment);
+		return comment;
+	}
 }

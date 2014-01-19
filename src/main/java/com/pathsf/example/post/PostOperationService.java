@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.pathsf.example.account.Account;
 import com.pathsf.example.account.AccountRepository;
@@ -55,5 +56,17 @@ public class PostOperationService {
 	@Transactional(readOnly=false)
 	public void deletePost(Long id){
 		postRepo.deletePost(id);
+	}
+	
+	@Transactional(readOnly=false)
+	public Comment makeCommentToPost(Long postId, String userName, Comment comment){
+		
+		Account acc = accountRepo.findByEmail(userName);
+		Assert.notNull(acc, "User info not found, please login first!");
+		Post post = postRepo.readPostById(postId);
+		comment.setOwner(acc);
+		comment.setPost(post);
+		
+		return postRepo.insertComment(comment);
 	}
 }

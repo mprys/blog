@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import com.pathsf.example.BaseEntity;
 import com.pathsf.example.account.Account;
@@ -43,6 +44,7 @@ public class Post extends BaseEntity implements Serializable {
 	List<Tag> tags;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE, mappedBy="post")
+	@JsonManagedReference
 	Set<Comment> comments;
 	
 	@Column(name="published")

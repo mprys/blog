@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class PostOperationController {
 		return "/post/editor";
 	}
 	
-	@RequestMapping(value="/post/create", method=RequestMethod.POST, produces={MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value="/post/create", method=RequestMethod.POST, produces={MediaType.APPLICATION_JSON_VALUE}, consumes={MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(value=HttpStatus.OK)
 	@ResponseBody
 	public Post createPost(@RequestBody Post post, Principal principal){
@@ -112,5 +113,13 @@ public class PostOperationController {
 		//model.addAttribute("message", new Message("Basarili", Type.SUCCESS, "Basarili"));
 		
 		return "post/publishedpost";
+	}
+	
+	@RequestMapping(value="/post/{postId}/{userName}/comment", method=RequestMethod.POST)
+	@ResponseStatus(value=HttpStatus.OK)
+	@ResponseBody
+	public Comment makeCommentToPost(@PathVariable Long postId, @PathVariable String userName, @RequestBody Comment comment){
+		
+		return postService.makeCommentToPost(postId, userName, comment); 	
 	}
 }
