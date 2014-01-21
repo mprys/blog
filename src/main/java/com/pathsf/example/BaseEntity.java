@@ -13,11 +13,20 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import com.pathsf.example.config.IdGenerator;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
+	/**
+	 * uuid is necessary for unsaved objects.
+	 */
+	@Transient
+	private String uuid = IdGenerator.createId();
+	
 	@Id
 	@Column(name = "id", updatable = false, nullable = false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -76,6 +85,10 @@ public abstract class BaseEntity {
 		this.version = version;
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,7 +128,11 @@ public abstract class BaseEntity {
 			return false;
 		if (version != other.version)
 			return false;
-		return true;
+		if (uuid == null){
+			return false;
+		}
+		
+		return uuid.equals(other.getUuid());
 	}
 
 	@Override
@@ -124,6 +141,8 @@ public abstract class BaseEntity {
 		builder.append(super.toString());
 		builder.append(" BaseEntity [id=");
 		builder.append(id);
+		builder.append(", uuid=");
+		builder.append(uuid);
 		builder.append(", createDate=");
 		builder.append(createDate);
 		builder.append(", updateDate=");
