@@ -1,14 +1,13 @@
 package com.pathsf.example.account;
 
-import javax.persistence.*;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
-import org.hibernate.Hibernate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.pathsf.example.post.Post;
 
 @Repository
 @Transactional(readOnly = true)
@@ -33,6 +32,7 @@ public class AccountRepository {
 			.setParameter("email", email)
 			.getSingleResult();
 			
+			//entityManager.detach(acc);
 			return acc;
 		} catch (PersistenceException e) {
 			return null;

@@ -23,6 +23,11 @@ public class PostOperationService {
 	public Post createPost(Post post, String email){
 		Account acc = accountRepo.findByEmail(email);
 		post.setAuthor(acc);
+
+		Tag tag = new Tag();
+		tag.setTagName("Car");
+		post.getTags().add(tag);
+
 		return postRepo.createPost(post);
 	}
 	
@@ -64,7 +69,7 @@ public class PostOperationService {
 		Account acc = accountRepo.findByEmail(userName);
 		Assert.notNull(acc, "User info not found, please login first!");
 		Post post = postRepo.readPostById(postId);
-		comment.setOwner(acc);
+		comment.setOwnerName(userName);
 		comment.setPost(post);
 		
 		return postRepo.insertComment(comment);

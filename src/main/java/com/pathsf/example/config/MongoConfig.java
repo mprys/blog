@@ -2,8 +2,6 @@ package com.pathsf.example.config;
 
 import java.net.UnknownHostException;
 
-import com.mongodb.Mongo;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -13,6 +11,8 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.convert.MongoTypeMapper;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
+
+import com.mongodb.Mongo;
 
 
 @Configuration

@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.pathsf.example.support.web.Message;
-import com.pathsf.example.support.web.Message.Type;
-import com.pathsf.example.support.web.MessageHelper;
 
 @Controller
 public class PostOperationController {
@@ -40,7 +35,7 @@ public class PostOperationController {
 	@ResponseStatus(value=HttpStatus.OK)
 	@ResponseBody
 	public Post createPost(@RequestBody Post post, Principal principal){
-
+		
 		Post created = postService.createPost(post, principal.getName());
 		return created;
 	}
@@ -115,7 +110,7 @@ public class PostOperationController {
 		return "post/publishedpost";
 	}
 	
-	@RequestMapping(value="/post/{postId}/{userName}/comment", method=RequestMethod.POST)
+	@RequestMapping(value="/post/{postId}/{userName}/comment", method=RequestMethod.POST, produces={MediaType.APPLICATION_JSON_VALUE}, consumes={MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(value=HttpStatus.OK)
 	@ResponseBody
 	public Comment makeCommentToPost(@PathVariable Long postId, @PathVariable String userName, @RequestBody Comment comment){

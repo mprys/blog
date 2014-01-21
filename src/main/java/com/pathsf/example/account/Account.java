@@ -11,17 +11,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.pathsf.example.BaseEntity;
-import com.pathsf.example.post.Comment;
 import com.pathsf.example.post.Post;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "account")
 @NamedQuery(name = Account.FIND_BY_EMAIL, query = "select a from Account a where a.email = :email")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Account.class)
 public class Account extends BaseEntity implements java.io.Serializable {
 
 	public static final String FIND_BY_EMAIL = "Account.findByEmail";
@@ -37,12 +37,7 @@ public class Account extends BaseEntity implements java.io.Serializable {
 	private Set<Role> roles;
 	
 	@OneToMany(mappedBy="author", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
-	@JsonManagedReference
 	private Set<Post> posts;
-	
-	@OneToMany(mappedBy="owner", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
-	@JsonManagedReference
-	private Set<Comment> comments;
 	
     protected Account() {
 
@@ -84,13 +79,5 @@ public class Account extends BaseEntity implements java.io.Serializable {
 
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
-	}
-
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
 	}
 }
