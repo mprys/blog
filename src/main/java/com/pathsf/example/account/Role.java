@@ -34,30 +34,4 @@ public class Role extends BaseEntity implements Serializable {
 	public void setRoleDefinition(String roleDefinition) {
 		this.roleDefinition = roleDefinition;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((roleDefinition == null) ? 0 : roleDefinition.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Role other = (Role) obj;
-		if (roleDefinition == null) {
-			if (other.roleDefinition != null)
-				return false;
-		} else if (!roleDefinition.equals(other.roleDefinition))
-			return false;
-		return true;
-	}
 }

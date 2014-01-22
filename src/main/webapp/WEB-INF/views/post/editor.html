@@ -59,8 +59,7 @@
    	            	 type: "PUT",
    	            	 dataType : "json",
    	            	 success: function(json) {
-   	            			$("#resultMessage").text("Your post published succesfully!");
-   	            			$("#publishLink").attr('disabled', true);
+   	            			window.location = "/blog/post/list";
    	            	 	},
    	            	 error: function( xhr, status ) {
    	            	        //alert( "there was a problem!" );

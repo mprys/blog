@@ -89,45 +89,28 @@ public abstract class BaseEntity {
 		return uuid;
 	}
 
+	/**
+	 * hashcode and equals implementation depends to the uuid (business id) because of the hibernate does not provide id to entity until it saves. 
+	 * uuid prevents the object uniqueness while all objects are not in the saved state.
+	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((createDate == null) ? 0 : createDate.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((updateDate == null) ? 0 : updateDate.hashCode());
-		result = prime * result + version;
-		return result;
+		
+		return ((uuid == null) ? super.hashCode() : uuid.hashCode());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
+		
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		BaseEntity other = (BaseEntity) obj;
-		if (createDate == null) {
-			if (other.createDate != null)
-				return false;
-		} else if (!createDate.equals(other.createDate))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (updateDate == null) {
-			if (other.updateDate != null)
-				return false;
-		} else if (!updateDate.equals(other.updateDate))
-			return false;
-		if (version != other.version)
-			return false;
+		
 		if (uuid == null){
 			return false;
 		}

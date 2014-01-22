@@ -38,8 +38,7 @@
   	            	 dataType : "json", 
   	            	 contentType : "application/json; charset=utf-8",
   	            	 success: function( json ) {
-  	            			$("#resultMessage").text("Your post published succesfully!");
-  	            			$("#updateButton").attr('disabled', true);
+  	            			window.location = "/blog/post/list";
   	            	 	},
   	            	 error: function( xhr, status ) {
   	            	        alert( "there was a problem!" );

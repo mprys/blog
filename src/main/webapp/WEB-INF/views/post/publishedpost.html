@@ -33,8 +33,13 @@
 </head>
 
 <body>
-	<div class="container">
-		<p id="htmlContent" th:text="${Post.content}" hidden="true"/>
+
+<div class="row">
+	<div class="col-md-3">
+		deneme
+	</div>
+	<div class="col-md-9" role="main">
+				<p id="htmlContent" th:text="${Post.content}" hidden="true"/>
 		<div class="jumbotron">
 			<h2 id="title" th:text="${Post.title}" style="text-align:center" />
 			<div id="contentDiv" >
@@ -46,6 +51,11 @@
 			</textarea>
 		</div>
 		</div>
+	</div>
+</div>
+	<div class="container">
+
+
 	</div>
 </body>
 </html>

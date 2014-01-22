@@ -108,48 +108,4 @@ public class Post extends BaseEntity implements Serializable {
 	public void setAuthor(Account author) {
 		this.author = author;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result
-				+ ((published == null) ? 0 : published.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Post other = (Post) obj;
-		if (author == null) {
-			if (other.author != null)
-				return false;
-		} else if (!author.equals(other.author))
-			return false;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
-		if (published == null) {
-			if (other.published != null)
-				return false;
-		} else if (!published.equals(other.published))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
 }

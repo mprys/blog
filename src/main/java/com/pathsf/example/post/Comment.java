@@ -57,38 +57,5 @@ public class Comment extends BaseEntity implements Serializable{
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result
-				+ ((ownerName == null) ? 0 : ownerName.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Comment other = (Comment) obj;
-		if (comment == null) {
-			if (other.comment != null)
-				return false;
-		} else if (!comment.equals(other.comment))
-			return false;
-		if (ownerName == null) {
-			if (other.ownerName != null)
-				return false;
-		} else if (!ownerName.equals(other.ownerName))
-			return false;
-		return true;
-	}
-	
+	}	
 }
