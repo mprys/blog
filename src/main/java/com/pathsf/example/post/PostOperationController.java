@@ -105,8 +105,7 @@ public class PostOperationController {
 	public String showPublishedPost(@PathVariable Long id, Principal principal, Model model, RedirectAttributes ra){
 		
 		model.addAttribute("Post", postService.readPostDetailsById(id));
-		//model.addAttribute("message", new Message("Basarili", Type.SUCCESS, "Basarili"));
-		
+			
 		return "post/publishedpost";
 	}
 	

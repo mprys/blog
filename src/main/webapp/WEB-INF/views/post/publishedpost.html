@@ -27,35 +27,64 @@
 					    content.substring(content.indexOf("img") + 3, content.length);
 					}
 				}			
-				$("#contentDiv").html(content);    		
+				$("#contentDiv").html(content);
+				
+				$("#makeComment").submit(function(event){
+					
+					alert($("#postId").val());
+					
+					var url = "/blog/post/" + $("#postId").val() + "/" + $("#userName").val() + "/comment";
+					alert(url);
+					
+					var jsonData = {	    					
+	    					"comment" : $("#commentDetail").val()
+	    				};
+					alert(JSON.stringify(jsonData));
+	   	             $.ajax({
+	   	            	 url: url,
+	   	            	 type: 'POST',
+	   	            	 dataType : "json",
+	   	            	 data : JSON.stringify(jsonData),
+	   	            	 contentType : "application/json",
+	   	            	 success: function(json) {
+	   	            			//window.location = "/blog/post/list";
+	   	            	 	},
+	   	            	 error: function( xhr, status ) {
+	   	            	        alert( "there was a problem!" );
+	   	            	    },
+	   	            	 complete: function( xhr, status ) {
+	   	            	        //alert( "The request is complete!" );
+	   	            	    }
+	   	             });   
+	   	             
+	   	             return false;
+	   	        });
 	    	});
    	  </script>           
 </head>
 
 <body>
 
-<div class="row">
-	<div class="col-md-3">
-		deneme
-	</div>
-	<div class="col-md-9" role="main">
-				<p id="htmlContent" th:text="${Post.content}" hidden="true"/>
-		<div class="jumbotron">
+<div class="container">
+		<div>
+		<p id="htmlContent" th:text="${Post.content}" hidden="true"/>
 			<h2 id="title" th:text="${Post.title}" style="text-align:center" />
 			<div id="contentDiv" >
-			
 			</div>
-		
-		<div id="commentsDiv" >
-				<textarea class="form-control" rows="3">
-			</textarea>
 		</div>
-		</div>
-	</div>
-</div>
-	<div class="container">
-
-
+		<form  method="post" id="makeComment" role="form" >
+			<div class="form-group" style="margin-top: 20px;"> 
+				<input type="hidden" id="postId" th:value="${Post.id}" />
+				<div class="input-group" >
+  					<span class="input-group-addon">@</span>
+  					<input id="userName" type="text" class="form-control" placeholder="Username" style="width:20%;"/>
+				</div>
+				<div class="input-group" >
+					<textarea id="commentDetail" class="form-control" rows="3" style="margin-top: 5px;" placeholder="Your Comments.."/>
+				</div> 	
+				<button class="btn btn-primary" style="margin-top: 5px;" id="saveComment" type="submit" >Save Comment</button>
+			</div>
+		</form>
 	</div>
 </body>
 </html>
