@@ -43,8 +43,8 @@ public class SignupController {
 			return SIGNUP_VIEW_NAME;
 		}
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(accountRepository.addRole(new Role("USER_ROLE")));
-		Account account = accountRepository.save(signupForm.createAccount(roles));
+		//roles.add(accountRepository.addRole(new Role("USER_ROLE")));
+		Account account = accountRepository.save(signupForm.createAccount(Role.USER_ROLE));
 		userService.signin(account);
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
         MessageHelper.addSuccessAttribute(ra, "signup.success");

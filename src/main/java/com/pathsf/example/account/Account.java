@@ -1,10 +1,13 @@
 package com.pathsf.example.account;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
@@ -32,10 +35,10 @@ public class Account extends BaseEntity implements java.io.Serializable {
 	@JsonIgnore
 	private String password;
 
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
-	@JoinColumn(name="account_id", referencedColumnName="id")
-	private Set<Role> roles;
-	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role", length = 20, nullable = false)
+	private Role role;
+
 	@OneToMany(mappedBy="author", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
 	private Set<Post> posts;
 	
@@ -43,10 +46,10 @@ public class Account extends BaseEntity implements java.io.Serializable {
 
 	}
 	
-	public Account(String email, String password, Set<Role> roles) {
+	public Account(String email, String password, Role role) {
 		this.email = email;
 		this.password = password;
-		this.roles = roles;
+		this.role = role;
 	}
 
     public String getEmail() {
@@ -65,12 +68,12 @@ public class Account extends BaseEntity implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Set<Post> getPosts() {

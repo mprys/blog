@@ -57,9 +57,8 @@ public class UserServiceTest {
 	@Test
 	public void shouldReturnUserDetails() {
 		// arrange
-		Set<Role> roles = new HashSet<Role>();
-		roles.add(new Role("ROLE_USER"));
-		Account demoUser = new Account("user@example.com", "demo", roles);
+
+		Account demoUser = new Account("user@example.com", "demo", Role.USER_ROLE);
 		when(accountRepositoryMock.findByEmail("user@example.com")).thenReturn(demoUser);
 
 		// act
