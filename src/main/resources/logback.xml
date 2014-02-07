@@ -15,7 +15,6 @@
 		<appender-ref ref="STDOUT" />
 	</root>
 
-	<logger name="com.pathsf.example" level="ALL" />
 	<logger name="org.springframework.http" level="DEBUG" />
 	<logger name="com.fasterxml.jackson" level="DEBUG"/>
 	<logger name="org.thymeleaf" level="OFF"/>
